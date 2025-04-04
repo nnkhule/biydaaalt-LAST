@@ -1,0 +1,37 @@
+-------------------------------------------------------------------------------
+Test set: com.mycompany.app.FlashcardAppTest
+-------------------------------------------------------------------------------
+Tests run: 3, Failures: 0, Errors: 3, Skipped: 0, Time elapsed: 0.080 s <<< FAILURE! -- in com.mycompany.app.FlashcardAppTest
+com.mycompany.app.FlashcardAppTest.testAskQuestions -- Time elapsed: 0.033 s <<< ERROR!
+java.lang.Error: 
+Unresolved compilation problem: 
+	The method askQuestions(List<Flashcard>, int, boolean, String) from the type FlashcardApp is not visible
+
+	at com.mycompany.app.FlashcardAppTest.testAskQuestions(FlashcardAppTest.java:73)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+
+com.mycompany.app.FlashcardAppTest.testGetCardOrganizer -- Time elapsed: 0.004 s <<< ERROR!
+java.lang.Error: 
+Unresolved compilation problems: 
+	The method getCardOrganizer(String) from the type FlashcardApp is not visible
+	The method getCardOrganizer(String) from the type FlashcardApp is not visible
+	The method getCardOrganizer(String) from the type FlashcardApp is not visible
+	The method getCardOrganizer(String) from the type FlashcardApp is not visible
+
+	at com.mycompany.app.FlashcardAppTest.testGetCardOrganizer(FlashcardAppTest.java:41)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+
+com.mycompany.app.FlashcardAppTest.testLoadCards -- Time elapsed: 0.003 s <<< ERROR!
+java.lang.Error: 
+Unresolved compilation problem: 
+	The method loadCards(String) from the type FlashcardApp is not visible
+
+	at com.mycompany.app.FlashcardAppTest.testLoadCards(FlashcardAppTest.java:25)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+

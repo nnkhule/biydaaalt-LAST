@@ -1,3 +1,3 @@
 What is the capital of France?;Paris
 What is 2+2?|4
-Who painted the Mona Lisa?; Leonardo da Vinci
+How many continent in the world?;7
