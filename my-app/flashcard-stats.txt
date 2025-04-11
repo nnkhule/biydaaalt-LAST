@@ -1,0 +1,5 @@
+3+4?;9;4
+How many continent in the world?;9;0
+What is 2+2?;9;4
+4+5?;9;0
+What is the capital of France?;9;2

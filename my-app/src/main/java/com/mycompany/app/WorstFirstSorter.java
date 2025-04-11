@@ -1,10 +1,15 @@
 package com.mycompany.app;
 
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.HashMap;
-import java.util.Comparator;
 
 
 public class WorstFirstSorter implements CardOrganizer {
@@ -26,19 +31,12 @@ public class WorstFirstSorter implements CardOrganizer {
         cards.sort(new Comparator<Flashcard>() {
             @Override
             public int compare(Flashcard a, Flashcard b) {
-                double aScore = getErrorRate(a);
-                double bScore = getErrorRate(b);
-                
-                if (aScore > bScore) {
-                    return -1;
-                } else if (aScore < bScore) {
-                    return 1;
-                } else {
-                    return 0;
-                }
+                // Жишээний дагуу буруу хариултын хувь хэмжээгээр эрэмбэлнэ
+                return Double.compare(getErrorRate(b), getErrorRate(a));
             }
-            
+
             private double getErrorRate(Flashcard card) {
+                // Жишээний дагуу буруу хариултын хувь хэмжээг тооцоолно
                 String question = card.getQuestion();
                 int correct = correctCounts.getOrDefault(question, 0);
                 int incorrect = incorrectCounts.getOrDefault(question, 0);
@@ -49,4 +47,38 @@ public class WorstFirstSorter implements CardOrganizer {
             }
         });
     }
+
+private static final String STATS_FILE = "flashcard-stats.txt";
+
+public static void loadStats() {
+    try (BufferedReader reader = new BufferedReader(new FileReader(STATS_FILE))) {
+        String line;
+        while ((line = reader.readLine()) != null) {
+            String[] parts = line.split(";");
+            if (parts.length == 3) {
+                String question = parts[0];
+                int correct = Integer.parseInt(parts[1]);
+                int incorrect = Integer.parseInt(parts[2]);
+                correctCounts.put(question, correct);
+                incorrectCounts.put(question, incorrect);
+            }
+        }
+    } catch (IOException e) {
+        // анх удаа ажиллуулж байгаа байж болно
+    }
 }
+
+public static void saveStats() {
+    try (PrintWriter writer = new PrintWriter(new FileWriter(STATS_FILE))) {
+        for (String question : correctCounts.keySet()) {
+            int correct = correctCounts.getOrDefault(question, 0);
+            int incorrect = incorrectCounts.getOrDefault(question, 0);
+            writer.println(question + ";" + correct + ";" + incorrect);
+        }
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
+
+}
+

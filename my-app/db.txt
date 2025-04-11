@@ -1,3 +1,5 @@
 What is the capital of France?;Paris
 What is 2+2?|4
 How many continent in the world?;7
+4+5?|9
+3+4?|7

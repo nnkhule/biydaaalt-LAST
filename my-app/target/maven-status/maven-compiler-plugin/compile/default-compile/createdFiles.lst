@@ -1,0 +1,7 @@
+com\mycompany\app\CardOrganizer.class
+com\mycompany\app\Flashcard.class
+com\mycompany\app\WorstFirstSorter.class
+com\mycompany\app\FlashcardApp.class
+com\mycompany\app\WorstFirstSorter$1.class
+com\mycompany\app\RecentMistakesFirstSorter.class
+com\mycompany\app\RandomCardOrganizer.class

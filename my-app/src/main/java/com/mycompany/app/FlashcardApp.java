@@ -45,11 +45,22 @@ public class FlashcardApp {
             }
         }
 
+        if (order.equals("worst-first")) {
+            WorstFirstSorter.loadStats();
+        }
+        if (order.equals("recent-mistakes-first")) {
+            RecentMistakesFirstSorter.loadRecentMistakes(loadCards(cardFile));
+        }
+        
+
         List<Flashcard> cards = loadCards(cardFile);
         CardOrganizer organizer = getCardOrganizer(order);
         organizer.organize(cards);
 
-        askQuestions(cards, repetitionCount, invertCards, order);
+        askQuestions(cards, repetitionCount, invertCards, order, organizer);
+        if (order.equals("worst-first")) {
+            WorstFirstSorter.saveStats();
+        }
     }
 
     private static void printHelp() {
@@ -99,12 +110,13 @@ public class FlashcardApp {
         }
     }
 
-    private static void askQuestions(List<Flashcard> cards, int repetitionCount, boolean invertCards, String order) {
+    private static void askQuestions(List<Flashcard> cards, int repetitionCount, boolean invertCards, String order, CardOrganizer organizer) {
         Scanner scanner = new Scanner(System.in);
         Map<String, Integer> correctAnswers = new HashMap<>();
         Map<String, Integer> incorrectAnswers = new HashMap<>();
 
         while (!cards.isEmpty()) {
+            organizer.organize(cards); // Add this line to re-sort before each full pass
             Iterator<Flashcard> iterator = cards.iterator();
             while (iterator.hasNext()) {
                 Flashcard card = iterator.next();
@@ -118,8 +130,13 @@ public class FlashcardApp {
                     System.out.println("Correct!");
                     correctAnswers.put(question, correctAnswers.getOrDefault(question, 0) + 1);
                     iterator.remove();
+                    WorstFirstSorter.recordCorrect(card);
+
                 } else {
                     System.out.println("Incorrect. Try again.");
+                    incorrectAnswers.put(question, incorrectAnswers.getOrDefault(question, 0) + 1);
+                    WorstFirstSorter.recordIncorrect(card);
+                    RecentMistakesFirstSorter.recordIncorrect(card);
                 }
             }
         }
@@ -140,4 +157,4 @@ public class FlashcardApp {
 }
 
 
-//java -cp target/classes com.mycompany.app.FlashcardApp "c:\Mathematic\Gamshig\buteelt\biydaaalt LAST\my-app\db.txt"
+//java -cp target/classes com.mycompany.app.FlashcardApp "c:\Mathematic\Gamshig\buteelt\biydaaalt LAST\my-app\db.txt" --order worst-first 
